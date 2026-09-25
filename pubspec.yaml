@@ -1,0 +1,35 @@
+name: my_flutter_app
+description: "サッと計算 - 日常のちょっとした計算をサッと済ませるユーティリティアプリ"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # 状態管理
+  flutter_riverpod: ^2.6.1
+
+  # 広告(AdMob)
+  google_mobile_ads: ^5.2.0
+
+  # ローカル保存(履歴・設定)
+  shared_preferences: ^2.3.3
+
+  # 日付フォーマット
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
