@@ -45,3 +45,7 @@ app.*.map.json
 /android/app/release
 .claude/
 .metadata/
+
+# AdMob 本番IDなど、ビルド時に渡す値(ひな形 *.example.json のみコミットする)
+/dart_defines/*.json
+!/dart_defines/*.example.json

@@ -35,12 +35,11 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <!-- AdMob アプリID(現在はGoogle公式のテスト用ID)。
-             本番リリース前に AdMob管理画面で発行した実際のApp IDに置き換えること。
-             lib/config/ad_config.dart の広告ユニットIDとあわせて差し替える。 -->
+        <!-- AdMob アプリID。値は android/app/build.gradle.kts で設定する
+             (デバッグ時はテスト用ID、リリース時はビルド時に渡す ADMOB_APP_ID_ANDROID)。 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="${admobAppId}" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

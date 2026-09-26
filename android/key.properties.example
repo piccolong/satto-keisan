@@ -1,0 +1,6 @@
+# リリース署名の設定。このファイルを key.properties という名前でコピーし、値を書き換える。
+# key.properties とキーストア(.jks)は Git に入れないこと(android/.gitignore で除外済み)。
+storeFile=C:/Users/ryout/keys/satto_keisan-upload.jks
+storePassword=キーストアのパスワード
+keyAlias=upload
+keyPassword=鍵のパスワード

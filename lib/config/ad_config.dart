@@ -1,56 +1,43 @@
 import 'dart:io' show Platform;
 
+import 'package:flutter/foundation.dart' show kReleaseMode;
+
 /// 広告関連の設定を集約するクラス。
 ///
-/// 本番リリース時は [useTestAds] を `false` にした上で、
-/// `_prod` 系定数を実際のAdMob広告ユニットIDに差し替えてください。
+/// 本番の広告ユニットIDはソースに書かず、リリースビルド時に渡す:
+/// `flutter build appbundle --dart-define-from-file=dart_defines/admob.prod.json`
+/// (ひな形は dart_defines/admob.prod.example.json)
 class AdConfig {
   AdConfig._();
 
-  /// true の間はGoogle公式のテスト広告ユニットIDを使用する。
-  /// リリースビルド前に必ず false へ切り替え、本番IDを設定すること。
-  static const bool useTestAds = true;
+  // ── 本番用広告ユニットID(ビルド時に --dart-define で渡す) ─────────────
+  static const String _bannerProdAndroid = String.fromEnvironment('ADMOB_BANNER_ANDROID');
+  static const String _bannerProdIOS = String.fromEnvironment('ADMOB_BANNER_IOS');
+  static const String _interstitialProdAndroid =
+      String.fromEnvironment('ADMOB_INTERSTITIAL_ANDROID');
+  static const String _interstitialProdIOS = String.fromEnvironment('ADMOB_INTERSTITIAL_IOS');
 
   // ── テスト用広告ユニットID(Google公式の共通テストID) ──────────────
-  static const String _bannerTestAndroid =
-      'ca-app-pub-3940256099942544/6300978111';
-  static const String _bannerTestIOS =
-      'ca-app-pub-3940256099942544/2934735716';
+  static const String _bannerTestAndroid = 'ca-app-pub-3940256099942544/6300978111';
+  static const String _bannerTestIOS = 'ca-app-pub-3940256099942544/2934735716';
+  static const String _interstitialTestAndroid = 'ca-app-pub-3940256099942544/1033173712';
+  static const String _interstitialTestIOS = 'ca-app-pub-3940256099942544/4411468910';
 
-  static const String _interstitialTestAndroid =
-      'ca-app-pub-3940256099942544/1033173712';
-  static const String _interstitialTestIOS =
-      'ca-app-pub-3940256099942544/4411468910';
-
-  // ── 本番用広告ユニットID(TODO: 実際のIDに差し替える) ───────────────
-  static const String _bannerProdAndroid =
-      'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX';
-  static const String _bannerProdIOS =
-      'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX';
-
-  static const String _interstitialProdAndroid =
-      'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX';
-  static const String _interstitialProdIOS =
-      'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX';
+  /// リリースビルド以外では常にテスト広告を使う(開発中に本番広告を表示しない)。
+  /// リリースビルドでも本番IDが渡されていなければテスト広告になる。
+  static String _pick(String prod, String test) =>
+      kReleaseMode && prod.isNotEmpty ? prod : test;
 
   /// バナー広告のユニットID(プラットフォーム自動判定)
   static String get bannerAdUnitId {
-    if (Platform.isAndroid) {
-      return useTestAds ? _bannerTestAndroid : _bannerProdAndroid;
-    } else if (Platform.isIOS) {
-      return useTestAds ? _bannerTestIOS : _bannerProdIOS;
-    }
-    return _bannerTestAndroid;
+    if (Platform.isIOS) return _pick(_bannerProdIOS, _bannerTestIOS);
+    return _pick(_bannerProdAndroid, _bannerTestAndroid);
   }
 
   /// インタースティシャル広告のユニットID(プラットフォーム自動判定)
   static String get interstitialAdUnitId {
-    if (Platform.isAndroid) {
-      return useTestAds ? _interstitialTestAndroid : _interstitialProdAndroid;
-    } else if (Platform.isIOS) {
-      return useTestAds ? _interstitialTestIOS : _interstitialProdIOS;
-    }
-    return _interstitialTestAndroid;
+    if (Platform.isIOS) return _pick(_interstitialProdIOS, _interstitialTestIOS);
+    return _pick(_interstitialProdAndroid, _interstitialTestAndroid);
   }
 
   /// 「計算する」ボタンを何回タップするごとにインタースティシャル広告を
