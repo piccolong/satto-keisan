@@ -47,7 +47,7 @@ $g.DrawString('サッと計算', $fTitle, $white, $tx - 6, 108)
 $g.DrawString('日常の計算を、これ1つでサッと。', $fSub, $soft, $tx, 232)
 
 # 機能チップ
-$chips = @('割り勘', '消費税', '日数・日付', '単位変換', '％計算')
+$chips = @('割り勘', '消費税', '日付・年齢・日数', '単位変換', '％計算')
 $cx = $tx; $cy = 312
 $chipBg = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(56, 255, 255, 255))
 foreach ($c in $chips) {

@@ -14,7 +14,7 @@ void main() {
 
     expect(find.text('サッと計算'), findsOneWidget);
     expect(find.text('割り勘計算'), findsOneWidget);
-    expect(find.text('日数・日付計算'), findsOneWidget);
+    expect(find.text('日付・年齢・日数計算'), findsOneWidget);
     expect(find.text('単位変換'), findsOneWidget);
 
     // グリッドは端末サイズによって一部のカードが画面外になるためスクロールする。

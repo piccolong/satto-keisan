@@ -18,7 +18,7 @@ class _ToolEntry {
 
 final List<_ToolEntry> _tools = [
   _ToolEntry(Icons.groups, '割り勘計算', (_) => const WarikanScreen()),
-  _ToolEntry(Icons.event, '日数・日付計算', (_) => const DateCalcScreen()),
+  _ToolEntry(Icons.event, '日付・年齢・日数計算', (_) => const DateCalcScreen()),
   _ToolEntry(Icons.swap_horiz, '単位変換', (_) => const UnitConvertScreen()),
   _ToolEntry(Icons.receipt_long, '消費税計算', (_) => const TaxCalcScreen()),
   _ToolEntry(Icons.percent, 'パーセント計算', (_) => const PercentCalcScreen()),

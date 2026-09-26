@@ -10,7 +10,7 @@ import '../widgets/ad_banner_widget.dart';
 import '../widgets/history_section.dart';
 import '../widgets/result_display.dart';
 
-/// 日数・日付計算画面。タブで3つのモードを切り替える。
+/// 日付・年齢・日数計算画面。タブで3つのモードを切り替える。
 /// 1. 〇日後の日付を計算  2. 生年月日から年齢計算  3. 2つの日付間の日数計算
 class DateCalcScreen extends ConsumerStatefulWidget {
   const DateCalcScreen({super.key});
@@ -163,7 +163,7 @@ class _DateCalcScreenState extends ConsumerState<DateCalcScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('日数・日付計算'),
+        title: const Text('日付・年齢・日数計算'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [

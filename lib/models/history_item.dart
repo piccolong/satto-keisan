@@ -11,7 +11,7 @@ enum ToolType {
       case ToolType.warikan:
         return '割り勘計算';
       case ToolType.dateCalc:
-        return '日数・日付計算';
+        return '日付・年齢・日数計算';
       case ToolType.unitConvert:
         return '単位変換';
       case ToolType.taxCalc:
