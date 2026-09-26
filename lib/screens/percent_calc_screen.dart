@@ -6,7 +6,7 @@ import '../models/history_item.dart';
 import '../providers/history_provider.dart';
 import '../utils/calc_utils.dart';
 import '../widgets/ad_banner_widget.dart';
-import '../widgets/history_tile.dart';
+import '../widgets/history_section.dart';
 import '../widgets/result_display.dart';
 
 /// パーセント計算画面。タブで「割引後価格」「増減率」を切り替える。
@@ -139,12 +139,6 @@ class _PercentCalcScreenState extends ConsumerState<PercentCalcScreen>
 
   @override
   Widget build(BuildContext context) {
-    final history = ref
-        .watch(historyProvider)
-        .where((e) => e.toolType == ToolType.percentCalc)
-        .take(5)
-        .toList();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('パーセント計算'),
@@ -168,16 +162,10 @@ class _PercentCalcScreenState extends ConsumerState<PercentCalcScreen>
                 ],
               ),
             ),
-            if (history.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('直近の履歴', style: Theme.of(context).textTheme.titleSmall),
-                ),
-              ),
-            ...history.map(
-              (item) => HistoryTile(item: item, onTap: () => _applyHistory(item)),
+            HistorySection(
+              toolType: ToolType.percentCalc,
+              onSelect: _applyHistory,
+              headerPadding: const EdgeInsets.only(left: 16, right: 8),
             ),
             const AdBannerWidget(),
           ],

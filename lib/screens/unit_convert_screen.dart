@@ -7,7 +7,7 @@ import '../providers/history_provider.dart';
 import '../providers/settings_provider.dart';
 import '../utils/calc_utils.dart';
 import '../widgets/ad_banner_widget.dart';
-import '../widgets/history_tile.dart';
+import '../widgets/history_section.dart';
 import '../widgets/result_display.dart';
 
 /// 単位変換画面。カテゴリ・単位を選ぶとボタン不要でリアルタイムに変換する。
@@ -121,12 +121,6 @@ class _UnitConvertScreenState extends ConsumerState<UnitConvertScreen> {
   @override
   Widget build(BuildContext context) {
     final units = CalcUtils.unitsByCategory[_category]!;
-    final history = ref
-        .watch(historyProvider)
-        .where((e) => e.toolType == ToolType.unitConvert)
-        .take(5)
-        .toList();
-
     return Scaffold(
       appBar: AppBar(title: const Text('単位変換')),
       body: SafeArea(
@@ -218,14 +212,11 @@ class _UnitConvertScreenState extends ConsumerState<UnitConvertScreen> {
                     label: '変換結果',
                     resultText: _result == null ? '' : '${_numFormat.format(_result)}$_toUnit',
                   ),
-                  if (history.isNotEmpty) ...[
-                    const SizedBox(height: 24),
-                    Text('直近の履歴', style: Theme.of(context).textTheme.titleSmall),
-                    const SizedBox(height: 8),
-                    ...history.map(
-                      (item) => HistoryTile(item: item, onTap: () => _applyHistory(item)),
-                    ),
-                  ],
+                  HistorySection(
+                    toolType: ToolType.unitConvert,
+                    onSelect: _applyHistory,
+                    headerPadding: const EdgeInsets.only(top: 16),
+                  ),
                 ],
               ),
             ),

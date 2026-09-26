@@ -7,7 +7,7 @@ import '../models/history_item.dart';
 import '../providers/history_provider.dart';
 import '../utils/calc_utils.dart';
 import '../widgets/ad_banner_widget.dart';
-import '../widgets/history_tile.dart';
+import '../widgets/history_section.dart';
 import '../widgets/result_display.dart';
 
 /// 割り勘計算画面。合計金額と人数から1人あたりの金額を求める。
@@ -91,12 +91,6 @@ class _WarikanScreenState extends ConsumerState<WarikanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final history = ref
-        .watch(historyProvider)
-        .where((e) => e.toolType == ToolType.warikan)
-        .take(5)
-        .toList();
-
     return Scaffold(
       appBar: AppBar(title: const Text('割り勘計算')),
       body: SafeArea(
@@ -159,14 +153,11 @@ class _WarikanScreenState extends ConsumerState<WarikanScreen> {
                     label: '1人あたり',
                     resultText: _result == null ? '' : '¥${_yenFormat.format(_result)}',
                   ),
-                  if (history.isNotEmpty) ...[
-                    const SizedBox(height: 24),
-                    Text('直近の履歴', style: Theme.of(context).textTheme.titleSmall),
-                    const SizedBox(height: 8),
-                    ...history.map(
-                      (item) => HistoryTile(item: item, onTap: () => _applyHistory(item)),
-                    ),
-                  ],
+                  HistorySection(
+                    toolType: ToolType.warikan,
+                    onSelect: _applyHistory,
+                    headerPadding: const EdgeInsets.only(top: 16),
+                  ),
                 ],
               ),
             ),

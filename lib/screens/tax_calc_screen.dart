@@ -6,7 +6,7 @@ import '../models/history_item.dart';
 import '../providers/history_provider.dart';
 import '../utils/calc_utils.dart';
 import '../widgets/ad_banner_widget.dart';
-import '../widgets/history_tile.dart';
+import '../widgets/history_section.dart';
 import '../widgets/result_display.dart';
 
 /// 消費税計算画面。内税/外税の切り替えと任意の税率で税込み・税抜き金額を求める。
@@ -103,12 +103,6 @@ class _TaxCalcScreenState extends ConsumerState<TaxCalcScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final history = ref
-        .watch(historyProvider)
-        .where((e) => e.toolType == ToolType.taxCalc)
-        .take(5)
-        .toList();
-
     return Scaffold(
       appBar: AppBar(title: const Text('消費税計算')),
       body: SafeArea(
@@ -169,14 +163,11 @@ class _TaxCalcScreenState extends ConsumerState<TaxCalcScreen> {
                       ),
                     ),
                   ],
-                  if (history.isNotEmpty) ...[
-                    const SizedBox(height: 24),
-                    Text('直近の履歴', style: Theme.of(context).textTheme.titleSmall),
-                    const SizedBox(height: 8),
-                    ...history.map(
-                      (item) => HistoryTile(item: item, onTap: () => _applyHistory(item)),
-                    ),
-                  ],
+                  HistorySection(
+                    toolType: ToolType.taxCalc,
+                    onSelect: _applyHistory,
+                    headerPadding: const EdgeInsets.only(top: 16),
+                  ),
                 ],
               ),
             ),

@@ -67,6 +67,25 @@ class HistoryNotifier extends StateNotifier<List<HistoryItem>> {
     return state.where((e) => e.toolType == toolType).take(limit).toList();
   }
 
+  /// 指定IDの履歴を1件削除する。
+  Future<void> removeItem(String id) async {
+    state = state.where((e) => e.id != id).toList();
+    await _persist();
+  }
+
+  /// 削除した履歴を元に戻す(削除の取り消し用)。
+  Future<void> restoreItem(HistoryItem item) async {
+    if (state.any((e) => e.id == item.id)) return;
+    state = [...state, item]..sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    await _persist();
+  }
+
+  /// 指定ツールの履歴をすべて削除する。他のツールの履歴は残す。
+  Future<void> clearByTool(ToolType toolType) async {
+    state = state.where((e) => e.toolType != toolType).toList();
+    await _persist();
+  }
+
   /// 履歴を全件削除する。
   Future<void> clearAll() async {
     state = [];
