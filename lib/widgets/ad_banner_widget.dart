@@ -19,7 +19,7 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
   @override
   void initState() {
     super.initState();
-    _loadAd();
+    if (!AdConfig.screenshotMode) _loadAd();
   }
 
   void _loadAd() {
@@ -116,6 +116,8 @@ class InterstitialAdManager {
   /// 計算実行ボタンが押されたことを通知する。
   /// 規定回数(既定5回)ごとにインタースティシャル広告を表示する。
   void registerCalculationTap() {
+    if (AdConfig.screenshotMode) return;
+
     // 初回呼び出し時に先読みを開始しておく。
     if (_interstitialAd == null && !_isLoading) {
       _loadAd();

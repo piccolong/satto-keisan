@@ -23,6 +23,12 @@ class AdConfig {
   static const String _interstitialTestAndroid = 'ca-app-pub-3940256099942544/1033173712';
   static const String _interstitialTestIOS = 'ca-app-pub-3940256099942544/4411468910';
 
+  /// ストア用スクリーンショットの撮影時に広告を表示しないモード。
+  /// `flutter run --dart-define=SCREENSHOT_MODE=true` で有効になる。
+  /// 誤って広告なしで配信しないよう、リリースビルドでは常に無効。
+  static const bool screenshotMode =
+      !kReleaseMode && bool.fromEnvironment('SCREENSHOT_MODE');
+
   /// リリースビルド以外では常にテスト広告を使う(開発中に本番広告を表示しない)。
   /// リリースビルドでも本番IDが渡されていなければテスト広告になる。
   static String _pick(String prod, String test) =>
