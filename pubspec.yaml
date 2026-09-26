@@ -1,8 +1,8 @@
-name: my_flutter_app
+name: satto_keisan
 description: "サッと計算 - 日常のちょっとした計算をサッと済ませるユーティリティアプリ"
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ^3.11.5
