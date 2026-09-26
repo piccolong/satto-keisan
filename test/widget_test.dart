@@ -28,4 +28,13 @@ void main() {
     expect(find.text('消費税計算'), findsOneWidget);
     expect(find.text('パーセント計算'), findsOneWidget);
   });
+
+  testWidgets('アプリの言語は日本語(漢字を日本語の字形で表示するため)', (WidgetTester tester) async {
+    await tester.pumpWidget(const ProviderScope(child: MyApp()));
+    await tester.pumpAndSettle();
+
+    final context = tester.element(find.text('サッと計算'));
+    expect(Localizations.localeOf(context), const Locale('ja', 'JP'));
+    expect(MaterialLocalizations.of(context).cancelButtonLabel, 'キャンセル');
+  });
 }

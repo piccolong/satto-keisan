@@ -162,15 +162,19 @@ class _PercentCalcScreenState extends ConsumerState<PercentCalcScreen>
                 ],
               ),
             ),
-            HistorySection(
-              toolType: ToolType.percentCalc,
-              onSelect: _applyHistory,
-              headerPadding: const EdgeInsets.only(left: 16, right: 8),
-            ),
             const AdBannerWidget(),
           ],
         ),
       ),
+    );
+  }
+
+  /// 結果の下に表示する履歴欄(他の計算画面と同じ位置)。全タブ共通の履歴を表示する。
+  Widget _buildHistory() {
+    return HistorySection(
+      toolType: ToolType.percentCalc,
+      onSelect: _applyHistory,
+      headerPadding: const EdgeInsets.only(top: 16),
     );
   }
 
@@ -212,6 +216,7 @@ class _PercentCalcScreenState extends ConsumerState<PercentCalcScreen>
           label: '割引後の価格',
           resultText: _discountResult == null ? '' : '¥${_numFormat.format(_discountResult)}',
         ),
+        _buildHistory(),
       ],
     );
   }
@@ -254,6 +259,7 @@ class _PercentCalcScreenState extends ConsumerState<PercentCalcScreen>
               ? ''
               : '${_changeRateResult! >= 0 ? '+' : ''}${_numFormat.format(_changeRateResult)}%',
         ),
+        _buildHistory(),
       ],
     );
   }

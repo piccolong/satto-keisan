@@ -8,7 +8,7 @@ import '../utils/calc_utils.dart';
 /// アプリのバージョン表示。パッケージ肥大化を避けるため
 /// pubspec.yaml の version と手動で同期させている。
 /// ずれると test/app_version_test.dart が失敗する。
-const String appVersion = '1.1.1';
+const String appVersion = '1.1.2';
 
 /// 設定画面。ダークモード切り替え、単位変換のデフォルト単位、
 /// 履歴の全削除、バージョン表示を行う。

@@ -186,15 +186,19 @@ class _DateCalcScreenState extends ConsumerState<DateCalcScreen>
                 ],
               ),
             ),
-            HistorySection(
-              toolType: ToolType.dateCalc,
-              onSelect: _applyHistory,
-              headerPadding: const EdgeInsets.only(left: 16, right: 8),
-            ),
             const AdBannerWidget(),
           ],
         ),
       ),
+    );
+  }
+
+  /// 結果の下に表示する履歴欄(他の計算画面と同じ位置)。全タブ共通の履歴を表示する。
+  Widget _buildHistory() {
+    return HistorySection(
+      toolType: ToolType.dateCalc,
+      onSelect: _applyHistory,
+      headerPadding: const EdgeInsets.only(top: 16),
     );
   }
 
@@ -249,6 +253,7 @@ class _DateCalcScreenState extends ConsumerState<DateCalcScreen>
           label: '計算結果の日付',
           resultText: _addDaysResult == null ? '' : _dateFormat.format(_addDaysResult!),
         ),
+        _buildHistory(),
       ],
     );
   }
@@ -278,6 +283,7 @@ class _DateCalcScreenState extends ConsumerState<DateCalcScreen>
           label: '満年齢',
           resultText: _ageResult == null ? '' : '$_ageResult歳',
         ),
+        _buildHistory(),
       ],
     );
   }
@@ -316,6 +322,7 @@ class _DateCalcScreenState extends ConsumerState<DateCalcScreen>
           label: '日数の差',
           resultText: _daysBetweenResult == null ? '' : '$_daysBetweenResult日',
         ),
+        _buildHistory(),
       ],
     );
   }

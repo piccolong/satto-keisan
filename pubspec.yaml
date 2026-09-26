@@ -2,13 +2,16 @@ name: satto_keisan
 description: "サッと計算 - 日常のちょっとした計算をサッと済ませるユーティリティアプリ"
 publish_to: 'none'
 
-version: 1.1.1+4
+version: 1.1.2+5
 
 environment:
   sdk: ^3.11.5
 
 dependencies:
   flutter:
+    sdk: flutter
+  # 日本語ロケール(漢字を日本語の字形で表示し、日付選択なども日本語にする)
+  flutter_localizations:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
@@ -23,7 +26,7 @@ dependencies:
   shared_preferences: ^2.3.3
 
   # 日付フォーマット
-  intl: ^0.19.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
